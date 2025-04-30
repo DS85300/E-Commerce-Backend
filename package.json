@@ -1,0 +1,19 @@
+{
+  "name": "ecommerce_backend",
+  "version": "1.0.0",
+  "description": "full backend",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "dev": "node --watch index.js"
+  },
+  "author": "WBS",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "joi": "^17.13.3",
+    "pg": "^8.15.6",
+    "sequelize": "^6.37.7"
+  }
+}
