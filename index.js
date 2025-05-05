@@ -1,13 +1,19 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 5678
 
+
+
+
 app.use('/',(req,res) => {
 
-    app.res('Hello from the E-Commerce-Server')
+    res.send('Hello from the E-Commerce-Server')
 })
 
 
