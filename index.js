@@ -8,9 +8,6 @@ const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 5678
 
-
-
-
 app.use('/',(req,res) => {
 
     res.send('Hello from the E-Commerce-Server')
