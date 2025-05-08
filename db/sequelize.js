@@ -10,3 +10,5 @@ const sequelize = new Sequelize(process.env.PG_URI, {
     .catch(err => console.error('Unable to connect to the database:', err));
 
 export default sequelize;
+
+

@@ -1,7 +1,7 @@
-import sequelize from "../db/sequelize";
+import sequelize from "../db/sequelize.js";
 import { DataTypes } from "sequelize";
 
-const Product = sequelize.define('Product',{
+const Product = sequelize.define('products',{
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -17,16 +17,18 @@ const Product = sequelize.define('Product',{
     categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: Category,
-            key: 'id'
-        },
-        onDelete: 'CASCADE'
+        // references: {
+        //     model: 'category',
+        //     key: 'id'
+        // },
+        // onDelete: 'CASCADE'
     },
-    }
-)
+    }, {
+        freezeTableName:true,
+        tableName: 'products'
+    });
 
 // Product.belongsTo(Category, {foreignKey:'categoryId'});
 // Category.hasMany(Product, { foreignKey:'categoryId'})
-
+Product.sync()
 export default Product;

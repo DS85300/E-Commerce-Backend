@@ -1,17 +1,16 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import productRouter from './routers/productRouter.js';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
-const PORT = process.env.PORT || 5678
+const PORT = process.env.PORT || 5678;
 
-app.use('/',(req,res) => {
+app.use('/products',productRouter);
 
-    res.send('Hello from the E-Commerce-Server')
-})
 
 
 
