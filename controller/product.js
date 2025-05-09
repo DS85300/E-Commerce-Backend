@@ -1,4 +1,6 @@
+import { Op } from "sequelize";
 import Product from "../models/product.js";
+import Category from "../models/category.js";
 
 export const createProduct = async(req,res)=>{
     try {
@@ -28,7 +30,7 @@ export const createProduct = async(req,res)=>{
 export const getAllProducts = async(req,res) => {
     try {
         const products = await Product.findAll();
-        if(products.lenght === 0){
+        if(products.length === 0){
             return res.status(404).json({error:'no products found'})
         }
         res.status(200).json(products)
@@ -50,6 +52,23 @@ export const getProductById = async(req,res) => {
         res.status(500).json({error:'something went wrong'})
     }
 }
+
+export const getProductByName = async(req,res) => {
+    try {
+        const {search} = req.params
+        const product = await Product.findAll({where:{
+            name:{
+                [Op.iLike]: `%${search}%` //op.like= case unsenstitve , %inludes the name
+            }}})
+        if(product.length===0){ //!product would give back an empty array,cause  always truthy
+            return res.status(404).json({error:'product does not exist'})
+        }
+        return res.status(200).json(product)
+    } catch (error) {
+        return res.status(400).json({error: 'internal server error'})
+    }
+}
+
 export const deleteProduct = async(req,res) => {
     try {
         const {id} = req.params 
@@ -83,5 +102,27 @@ export const updateProduct = async(req,res) => {
     } catch (error) {
         console.error('something went wrong', error)
         
+    }
+}
+
+export const getProductByCategory = async(req,res) => {
+    try {
+        const {categoryName} = req.params
+        const products  = await Product.findAll({
+            include: [{
+                model: Category,
+                where: {
+                    name: {
+                        [Op.iLike]: `%${categoryName}%`
+                    }
+                },
+                attributes: ['name']
+            }]})
+        if(products.length===0){
+            return res.status(404).json({error:'no products for this category'})
+        }
+        res.status(200).json(products)
+    } catch (error) {
+        return res.status(500).json({error:'INternal server error'})
     }
 }
