@@ -28,7 +28,6 @@ const Product = sequelize.define('products',{
         tableName: 'products'
     });
 
-// Product.belongsTo(Category, {foreignKey:'categoryId'});
-// Category.hasMany(Product, { foreignKey:'categoryId'})
-Product.sync()
+
+
 export default Product;
